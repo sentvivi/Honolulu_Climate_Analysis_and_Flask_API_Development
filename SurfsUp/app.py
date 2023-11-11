@@ -100,7 +100,8 @@ def start():
 
         min_date = datetime.strptime(min_date, '%Y-%m-%d')  # Convert to datetime
         max_date = datetime.strptime(max_date, '%Y-%m-%d')  # Convert to datetime
-
+        
+        # make sure input date is within range of the dataset
         if start_date < min_date or start_date > max_date:
             return jsonify({"error": "Provided dates are outside the dataset's date range"}), 400
 
@@ -137,7 +138,8 @@ def start_end_date():
 
         min_date = datetime.strptime(min_date, '%Y-%m-%d')  # Convert to datetime
         max_date = datetime.strptime(max_date, '%Y-%m-%d')  # Convert to datetime
-
+        
+        # make sure input date is within range of the dataset
         if start_date < min_date or end_date > max_date:
             return jsonify({"error": "Provided dates are outside the dataset's date range"}), 400
 
