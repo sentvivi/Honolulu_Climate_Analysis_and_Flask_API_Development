@@ -6,11 +6,11 @@ This project revolves around performing a comprehensive climate analysis and des
 
 Project Structure
 
-Data Files
+1. Data Files
  * climate_starter.ipynb: Jupyter Notebook file for executing climate analysis and exploration.
  * hawaii.sqlite: Database file containing the climate data.
  
-Data Retrieval and Analysis:
+2. Data Retrieval and Analysis:
  * Use the provided climate_starter.ipynb and hawaii.sqlite to perform the climate analysis.
  * Utilize SQLAlchemy ORM queries to interact with the database.
  * Execute Precipitation and Station Analysis:
@@ -19,7 +19,7 @@ Data Retrieval and Analysis:
      * Calculate summary statistics for precipitation data.
      * Analyze stations and their observations to find the most active station.
      
-Flask API Development:
+3. Flask API Development:
  * Develop various routes to retrieve climate data:
      * /api/v1.0/precipitation: Retrieve the last 12 months of precipitation data.
      * /api/v1.0/stations: Fetch a JSON list of stations.
@@ -27,5 +27,5 @@ Flask API Development:
      * /api/v1.0/<start> and /api/v1.0/<start>/<end>: Calculate temperature statistics based on specified date ranges.
      * Use Flask jsonify function to ensure valid JSON response objects.
     
-Running the Flask App:
+4. Running the Flask App:
  * Launch the Flask application to access the designed routes.
