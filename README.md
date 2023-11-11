@@ -1,6 +1,7 @@
 # Honolulu_Climate_Analysis_and_Flask_API_Development
 
 Overview
+
 This project revolves around performing a comprehensive climate analysis and designing a Flask API based on the collected data for Honolulu, Hawaii. Using Python, SQLAlchemy, and Flask, the project involves data exploration, analysis, and the creation of a robust API.
 
 Project Structure
