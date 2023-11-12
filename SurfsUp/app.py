@@ -2,7 +2,7 @@
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Flask, jsonify, request
 import numpy as np
 
@@ -42,9 +42,9 @@ def homepage():
         "<h2><a href='/api/v1.0/stations' style='color: red;'>Stations</a></h2>"
         "<h2><a href='/api/v1.0/tobs' style='color: red;'>Tobs</a></h2>"
         "<h2><p style='color: green;'>Start date query</p></h2>"
-        "<h5><p style='color: green;'>ex: /api/v1.0/start?start=yyyy-mm-dd</p></h5>"
+        "<h5><p style='color: green;'>example: /api/v1.0/start?start=yyyy-mm-dd</p></h5>"
         "<h2><p style='color: green;'>Start & End date query</p></h2>"
-        "<h5><p style='color: green;'>ex: /api/v1.0/start_end?start=yyyy-mm-dd&end=yyyy-mm-dd</p></h5>"
+        "<h5><p style='color: green;'>example: /api/v1.0/start_end?start=yyyy-mm-dd&end=yyyy-mm-dd</p></h5>"
     )
 
 # Define routes for precipitation
@@ -63,7 +63,9 @@ def precipitation():
         .order_by(Measurement.date).all()
     
     # Create a dictionary from the query results
-    precipitation_data = {date: prcp for date, prcp in results}
+    precipitation_data ={}
+    for date, prcp in results:
+        precipitation_data[date]=prcp
 
     return jsonify(precipitation_data)
 
@@ -79,15 +81,22 @@ def stations():
 # Define routes for tobs
 @app.route('/api/v1.0/tobs')
 def tobs():
-     # Query the data and temperature observations of the most-active station for the previous year of data
-    results = session.query(Measurement.date, Measurement.prcp).\
-        filter(Measurement.date >= '2016-08-23').all()  # Adjust the start date accordingly
+    # Find the date one year ago from the last data point in the database
+    last_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+    last_date = datetime.strptime(last_date[0], '%Y-%m-%d').date()
+    one_year_ago = last_date - timedelta(days=365)
+    
+    # Query for the most active station's temperature observations for the last year
+    results = session.query(Measurement.date, Measurement.tobs).\
+        filter(Measurement.station == 'USC00519281').\
+        filter(Measurement.date >= one_year_ago).all()
     
     # Create a dictionary from the query results
-    tobs = {date: prcp for date, prcp in results}
+    tobs_data = {}
+    for date, tobs in results:
+        tobs_data[date] = tobs
 
-    return jsonify(tobs)
-
+    return jsonify(tobs_data)
 # Define routes for start
 @app.route('/api/v1.0/start', methods=['GET'])
 def start():
