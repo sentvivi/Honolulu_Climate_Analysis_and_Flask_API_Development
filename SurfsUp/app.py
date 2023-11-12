@@ -38,11 +38,13 @@ app = Flask(__name__)
 def homepage():
     return (
         "<h1 style='text-align: center; font-size: 36px;'>Welcome to the Climate App!</h1>"
-        "<h2><a href='/api/v1.0/precipitation' style='color: red;'>/api/v1.0/precipitation</a></h2>"
-        "<h2><a href='/api/v1.0/stations' style='color: red;'>/api/v1.0/stations</a></h2>"
-        "<h2><a href='/api/v1.0/tobs' style='color: red;'>/api/v1.0/tobs</a></h2>"
-        "<h2><p style='color: green; font_size:30px;'>/api/v1.0/start?start=year-mm-dd</p></h2>"
-        "<h2><p style='color: green; font_size:30px;'>/api/v1.0/start_end?start=yyyy-mm-dd&end=yyyy-mm-dd</p></h2>"
+        "<h2><a href='/api/v1.0/precipitation' style='color: red;'>Precipitation</a></h2>"
+        "<h2><a href='/api/v1.0/stations' style='color: red;'>Stations</a></h2>"
+        "<h2><a href='/api/v1.0/tobs' style='color: red;'>Tobs</a></h2>"
+        "<h2><p style='color: green;'>Start date query</p></h2>"
+        "<h5><p style='color: green;'>ex: /api/v1.0/start?start=yyyy-mm-dd</p></h5>"
+        "<h2><p style='color: green;'>Start & End date query</p></h2>"
+        "<h5><p style='color: green;'>ex: /api/v1.0/start_end?start=yyyy-mm-dd&end=yyyy-mm-dd</p></h5>"
     )
 
 # Define routes for precipitation
